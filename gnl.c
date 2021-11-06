@@ -25,7 +25,6 @@ void    ft_strdel(char **as)
     *as = NULL;
 }
 
-
 char    *ft_strcat(char *s1, const char *s2)
 {
     size_t i;
