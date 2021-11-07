@@ -1,0 +1,16 @@
+{
+    "guides.active.width": 5,
+    "guides.active.style": "groove",
+    "guides.normal.style": "inset",
+    "guides.normal.width": 3,
+    "guides.overrideDefault": true,
+    "guides.stack.width": 3,
+    "guides.updateDelay": 0.01,
+    "guides.stack.style": "ridge",
+    "guides.normal.color.dark": "rgba(457, 85, 840, 0.75)",
+    "guides.normal.color.light": "rgba(220, 420, 220, 0.75)",
+    "guides.active.gutter": true,
+    "files.associations": {
+        "get_next_line.h": "c"
+    }
+}

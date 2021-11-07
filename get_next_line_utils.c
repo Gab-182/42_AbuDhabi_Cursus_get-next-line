@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:23:55 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/07 01:32:14 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/08 01:23:43 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	new_str[i] = '\0';
 	return (new_str);
+}
+
+void	*ft_memset(void *dest, int c, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		((unsigned char *)dest)[i] = (unsigned char)c;
+		i++;
+	}
+	return (dest);
 }
