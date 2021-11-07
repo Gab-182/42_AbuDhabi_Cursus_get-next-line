@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:23:57 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/07 00:05:33 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/07 01:31:17 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # define BUFFER_SIZE 512
+# define OPEN_MAX 4865
 
 size_t		ft_strlen(const char *s);
 char		*ft_strjoin(char const *s1, char const *s2);

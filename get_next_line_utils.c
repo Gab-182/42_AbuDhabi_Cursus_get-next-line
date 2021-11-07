@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:23:55 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/07 00:28:11 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/07 01:32:14 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_str[i] = '\0';
 	return (new_str);
 }
-
-void	free_str(char *str)
-{
-	if (str)
-	{
-		free(str);
-		str = NULL;
-	}
-}
-
