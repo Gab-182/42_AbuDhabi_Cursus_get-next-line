@@ -6,17 +6,19 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:23:57 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/08 05:25:34 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/07 11:03:11 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 32
-# define OPEN_MAX 256
+# include <stdio.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# define BUFF_SIZE 32
+# define OPEN_MAX 4865
 
 char        *get_next_line(int fd);
 size_t		ft_strlen(const char *s);

@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 22:43:43 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/08 02:35:13 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/08 05:25:03 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,10 @@ int		anlyze_errors(int fd, char **basic_text, char **line)
 
 char	*get_next_line(int fd)
 {
-	static	char **basic_text;
-	static	char **line;
-	char	*buffer;
-	int		bytes;
+	static char		**basic_text;
+	static char		**line;
+	char			*buffer;
+	int				bytes;
 	
 	/*
 	 * Assign memory of size BUFF_SIZE to the variable (buf).
