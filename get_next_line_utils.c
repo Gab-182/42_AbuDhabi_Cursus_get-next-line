@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:23:55 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/08 01:23:43 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:20:25 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,26 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_str[i] = '\0';
 	return (new_str);
 }
+
+// char	*ft_strnew(size_t size)
+// {
+// 	char	*str;
+
+// 	str = ft_memalloc(size);
+// 	return (str);
+// 
+
+// void	*ft_memalloc(size_t size)
+// {
+// 	void	*result;
+
+// 	result = malloc(size + 1);
+// 	if (result != NULL)
+// 	{
+// 		ft_memset(result, '\0', size);
+// 	}
+// 	return (result);
+// }
 
 void	*ft_memset(void *dest, int c, size_t len)
 {
