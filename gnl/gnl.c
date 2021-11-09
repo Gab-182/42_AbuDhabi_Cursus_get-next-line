@@ -32,6 +32,7 @@
 
 #include "get_next_line.h"
 #include <unistd.h>
+# define BUFFER_SIZE 42
 //#include <stdio.h>
 //#include <fcntl.h>
 
