@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 22:43:43 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/08 05:25:03 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/09 09:50:44 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,65 @@ void	free_str(char **str)
 		str = NULL;
 	}
 }
+
 /* 
- * Here the variable (line) is a static variable from the function g_n_l.
- *
- * So, basically here: we are coping making a temp string from the (basic_text),
- * and check that temp for any next_line char:
- * 	- if there one: 			
-*/
-int		search_new_line(char **basic_text, char **line)
+ * 🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
+ * This function is to search for new line in the argument
+ * (basic_text) and then create a temporary variable, 
+ * and allocate memory to it.
+ * This temporary variable used to copy the text (until
+ * we found new line), from the function argument (basic_text).
+ */
+static char	*search_new_line(char *basic_text)
 {
 	char	*temp;
-	char 	*text;
 	int		i;
 
 	i = 0;
-	temp = *basic_text;
-	while (temp[i] != '\n')
-	{
+	/* step-1:
+	 * - Checking that (basic text) is not a NULL string
+	 */
+	if (!basic_text)
+		return (NULL);
+	/* 
+	 * step-2:
+	 * - Searching for new_line character. 
+	 *   This step is just to help me to allocate the right amount
+	 *   of memory to the temporary variable (temp).
+	 */
+	while (basic_text[i] != '\n' && basic_text[i] != '\0')
 		i++;
-		if (temp[i] == '\0')
-			return (0);
-	}
-	/* If we fined new line, do the rest of the code and return (1)*/
-
-/*************************__re-check here__**********************************/
-	text = &temp[i];
-	*text = '\0';
-	*line = ft_strdup(*basic_text);
-	*basic_text = ft_strdup(text + 1);
-/****************************************************************************/
-	free(temp);
-	return (1);
+	/*
+	 * [Q1]:
+	 * Check if that memory allocation is good or I should write
+	 * it in another formula.
+	 */
+	temp = (char *) malloc(sizeof(char) * (i + 1));
+	/* step-1:
+	 * - Checking that (basic text) is not a NULL string
+	 */
+	if (!temp)
+		return (NULL);
+	/**
+	 * step-3:
+	 * Either If we found a new line or if we reached the end of the
+	 * file whithout finding a new_line;
+	 * We will copy all the characters from the first index of (basic_text)
+	 * to the temporary variable (temp). 
+	*/
+	i = 0;
+	while (basic_text[i] != '\0' && basic_text[i] != '\n')
+	{
+		temp[i] = basic_text[i];
+		i++;
+	}/* check if you need to uncomment this step while testing.*/
+	// if (basic_text[i] == '\n')
+	// {
+	// 	temp[i] = basic_text[i];
+	// 	i++;
+	// }
+	temp[i] = '\0';
+	return (temp);
 }
 
 int		reading_file(int fd, char *buf, char **basic_text, char **line)
