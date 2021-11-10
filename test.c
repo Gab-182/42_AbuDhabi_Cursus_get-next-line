@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#define BUFFER_SIZE 5
+#define BUFFER_SIZE 1
 
 int main() 
 {
@@ -11,38 +11,51 @@ int main()
     ssize_t bytes;
     char buffer[BUFFER_SIZE];
 	
-	fd = open("buzz.txt", O_RDONLY);
+	fd = open("buzz", O_RDONLY);
 
     bytes = read(fd, buffer, BUFFER_SIZE);
-    // printf("fd = %d\n ", fd);
-    // printf("%s\n", buffer);
-
-    i = 0;
     while (bytes > 0)
     {
-        bytes = read(fd, buffer, BUFFER_SIZE);
+        /* Protection*/
+        if (bytes == 0 || bytes < 0)
+            break;
 
-        if (bytes == -1)
-        {
-            printf("Error");
-            break ;
-        }
-        
-        /* Trying to check if I reached the end of the file */
-        while (i < BUFFER_SIZE)
+        printf("%s\n", buffer);
+
+        /* 
+         *Trying to check if I reached the end of the file 
+         * or new line found
+         */
+        i = 0;
+        while (i <= BUFFER_SIZE)
         {
             if (buffer[i] == '\n')
             {
-                printf("That is a new line");
+                printf("new line");
+                i++;
             }
-            if (buffer[i] == '\0')
+            else if (buffer[i] == '\0')
+                {
+                    printf("EOF");
+                    i++;
+                }
+            else
             {
-                printf("You have reached the EOF");
-                break ;
+                i++;
             }
-            i++;
         }
-        printf("%s\n", buffer);
+        i = 0;
+        /* Protection*/
+        if (bytes == 0 || bytes < 0)
+            break;
+        bytes = read(fd, buffer, BUFFER_SIZE);
+    }
+    if (bytes <= 0)
+    {
+        if (bytes < 0)
+            printf("Error");
+        if (bytes == 0)
+            printf("EOF");
     }
     close(fd);
     return (EXIT_SUCCESS);
