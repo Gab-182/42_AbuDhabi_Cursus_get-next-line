@@ -1,10 +1,12 @@
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	n ;
 
 	n = 0;
+	if (!s)
+		return (0);
 	while (s[n] != '\0')
 	{
 		n++;
@@ -86,7 +88,7 @@ char	*ft_search_new_line(char *buffer)
 	 *   This step is just to help me to allocate the right amount
 	 *   of memory to the temporary variable (temp).
 	 */
-	while (buffer[i] != '\n' && buffer[i] != '\0')
+	while (buffer[i] != '\n' && buffer[i])
 		i++;
 	/*
 	 * NOTE:
@@ -110,7 +112,7 @@ char	*ft_search_new_line(char *buffer)
 	 * to the temporary variable (temp). 
 	*/
 	i = 0;
-	while (buffer[i] != '\0' && buffer[i] != '\n')
+	while (buffer[i] && buffer[i] != '\n')
 	{
 		keep[i] = buffer[i];
 		i++;
@@ -188,7 +190,7 @@ char	*ft_get_next_text(char *edited_buffer)
 
 	i = 0;
 	n = 0;
-	while (edited_buffer[i] != '\0' && edited_buffer[i] != '\n')
+	while (edited_buffer[i] && edited_buffer[i] != '\n')
 		i++;
 	if (!edited_buffer)
 	{
@@ -198,6 +200,7 @@ char	*ft_get_next_text(char *edited_buffer)
 	next_text = (char *)malloc(sizeof(char) * (ft_strlen(edited_buffer) - i + 1));
 	if (!next_text)
 		return (NULL);
+	i++;
 	while (edited_buffer[i])
 	{
 		next_text[n] = edited_buffer[i];

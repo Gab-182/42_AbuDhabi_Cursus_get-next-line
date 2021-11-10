@@ -8,13 +8,13 @@ char	*ft_search_new_line(char *buffer)
 	i = 0;
 	if (!buffer[i])
 		return (NULL);
-	while (buffer[i] != '\n' && buffer[i] != '\0')
+	while (buffer[i] != '\n' && buffer[i])
 		i++;
 	keep = (char *) malloc(sizeof(char) * (i + 2));
 	if (!keep)
 		return (NULL);
 	i = 0;
-	while (buffer[i] != '\0' && buffer[i] != '\n')
+	while (buffer[i] && buffer[i] != '\n')
 	{
 		keep[i] = buffer[i];
 		i++;
@@ -59,10 +59,9 @@ char	*ft_get_next_text(char *edited_buffer)
 	char	*next_text;
 
 	i = 0;
-	n = 0;
-	while (edited_buffer[i] != '\0' && edited_buffer[i] != '\n')
+	while (edited_buffer[i] && edited_buffer[i] != '\n')
 		i++;
-	if (!edited_buffer)
+	if (!edited_buffer[i])
 	{
 		free(edited_buffer);
 		return (NULL);
@@ -71,6 +70,8 @@ char	*ft_get_next_text(char *edited_buffer)
 			 * (ft_strlen(edited_buffer) - i + 1));
 	if (!next_text)
 		return (NULL);
+	i++;
+	n = 0;
 	while (edited_buffer[i])
 		next_text[n++] = edited_buffer[i++];
 	next_text[n] = '\0';
