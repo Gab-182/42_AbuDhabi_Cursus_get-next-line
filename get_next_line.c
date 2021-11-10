@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 22:43:43 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/09 16:48:34 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/10 13:22:10 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		anlyze_errors(int fd, char *buffer)
  */
 static char	*search_new_line(char *buffer)
 {
-	char	*temp;
+	char	*keep;
 	int		i;
 
 	i = 0;
@@ -75,12 +75,12 @@ static char	*search_new_line(char *buffer)
 	 * cause we need also to make some space to the text and ends with
 	 * ['\n'  +  '\0'].
 	 */
-	temp = (char *) malloc(sizeof(char) * (i + 2));
+	keep = (char *) malloc(sizeof(char) * (i + 2));
 	/* 
 	 * step-3:
 	 * Checking that (basic text) is not a NULL string
 	 */
-	if (!temp)
+	if (!keep)
 		return (NULL);
 	/*
 	 * step-4:
@@ -92,7 +92,7 @@ static char	*search_new_line(char *buffer)
 	i = 0;
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 	{
-		temp[i] = buffer[i];
+		keep[i] = buffer[i];
 		i++;
 	}
 	/*
@@ -104,41 +104,77 @@ static char	*search_new_line(char *buffer)
 	 */
 	if (buffer[i] == '\n')
 	{
-		temp[i] = '\n';
+		keep[i] = '\n';
 		i++;
 	}
-	temp[i] = '\0';
-	return (temp);
+	keep[i] = '\0';
+	return (keep);
 }
 
 char	*reading_buffer(int fd, char *buffer)
 {
-	int		bytes;
-	char	*temp;
+	// int		bytes;
+	// char 	*keep;
+	// char	*buff;
+	// int 	i;
+	// i = 0;
+	// bytes = read(fd, buff, BUFFER_SIZE);
+	// while (bytes > 0)
+	// {
+    //     if (bytes == 0 || bytes < 0)
+    //         break;
+	// 	buff[bytes] = '\0';
+	// 	if (buffer != NULL)
+	// 	{
+	// 		buffer = ft_strdup(buff);
+	// 		keep = search_new_line(buffer);	
+	// 		// buffer = ft_strjoin(temp, buffer);
+	// 		/************** For Testing*********/
+	// 		printf("%s\n", buffer);
+	// 		// free_str(temp);
+	// 		// search_new_line(buffer);
+	// 	}
+	// 	else
+	// 	{
+	// 		buffer = ft_strdup(buff);
+	// 	}
+    //     if (bytes == 0 || bytes < 0)
+    //         break;
+	// 	bytes = read(fd, buff, BUFFER_SIZE);
+	// }
+	// return (buffer);
+/*===========================================================================*/
 	char	*buff;
-	int 	i;
+	int		bytes;
 
-	i = 0;
-	temp = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	bytes = read(fd, buff, BUFFER_SIZE);
-	while (bytes > 0)
+	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (NULL);
+	/* We need to start the while loop, thats why the (bytes)
+	 * should be more than (0).
+	 * and also we are giving another value for the (bytes) variable
+	 * inside the while loop.
+	 */
+	bytes = 1;
+	/*
+	 * In this step:
+	 * 1- check if there is not new_line char .or.
+	 * 	  the we are not at the end of the file;
+	 * 	   {enter the while loop};  
+	 */
+	while (!ft_strchr(buffer, '\n') && bytes != 0)
 	{
-		buff[bytes] = '\0';
-		if (buffer != NULL)
-		{
-			temp = search_new_line(buffer);
-			buffer = ft_strjoin(temp, buffer);
-			/************** For Testing*********/
-			printf("%s\n", buffer);
-			free_str(temp);
-			search_new_line(buffer);
-		}
-		else
-		{
-			buffer = ft_strdup(buff);
-		}
+		bytes = read(fd, buff, BUFFER_SIZE);
+		if (bytes == -1)
+			free(buff);
+			/* We don't write also the 
+			 * buff = NULL; cause that will distroy the whole
+			 * Blocks of memory for buff, and we need then to
+			 * reallocate memory for (buff).
+			 */
+			return (NULL);
+		
 	}
-	return (buffer);
 }
 
 char	*get_next_line(int fd)

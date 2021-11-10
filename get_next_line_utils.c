@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:23:55 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/09 16:20:25 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/10 11:09:44 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,6 @@ char	*ft_strdup(const char *s1)
 	}
 	s2[n] = '\0';
 	return (s2);
-}
-
-char	*ft_strcat(char *s, const char *append)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	while (append[j] != '\0')
-	{
-		s[i] = append[j];
-		i++;
-		j++;
-	}
-	s[i] = '\0';
-	return (s);
 }
 
 char	*ft_strcpy(char *dst, const char *src)
@@ -107,26 +86,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (new_str);
 }
 
-// char	*ft_strnew(size_t size)
-// {
-// 	char	*str;
-
-// 	str = ft_memalloc(size);
-// 	return (str);
-// 
-
-// void	*ft_memalloc(size_t size)
-// {
-// 	void	*result;
-
-// 	result = malloc(size + 1);
-// 	if (result != NULL)
-// 	{
-// 		ft_memset(result, '\0', size);
-// 	}
-// 	return (result);
-// }
-
 void	*ft_memset(void *dest, int c, size_t len)
 {
 	size_t	i;
@@ -138,4 +97,21 @@ void	*ft_memset(void *dest, int c, size_t len)
 		i++;
 	}
 	return (dest);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	n;
+
+	n = ft_strlen(s);
+	while (n >= 0)
+	{
+		if (*s == (char)c)
+		{
+			return ((char *)s);
+		}
+		s++;
+		n--;
+	}
+	return (0);
 }

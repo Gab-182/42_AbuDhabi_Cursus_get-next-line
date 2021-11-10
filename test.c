@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 100
 
 int main() 
 {
@@ -16,40 +16,44 @@ int main()
     bytes = read(fd, buffer, BUFFER_SIZE);
     while (bytes > 0)
     {
-        /* Protection*/
-        if (bytes == 0 || bytes < 0)
-            break;
-
-        printf("%s\n", buffer);
-
-        /* 
-         *Trying to check if I reached the end of the file 
-         * or new line found
-         */
-        i = 0;
-        while (i <= BUFFER_SIZE)
+        buffer[bytes] = '\0';
+        if (buffer != NULL)
         {
-            if (buffer[i] == '\n')
+            /* Protection*/
+            if (bytes == 0 || bytes < 0)
+                break;
+
+            printf("%s\n", buffer);
+
+            /* 
+             *Trying to check if I reached the end of the file 
+             * or new line found
+             */
+            i = 0;
+            while (i <= BUFFER_SIZE)
             {
-                printf("new line");
-                i++;
-            }
-            else if (buffer[i] == '\0')
+                if (buffer[i] == '\n')
                 {
-                    printf("EOF");
+                    printf("new line");
                     i++;
                 }
-            else
-            {
-                i++;
+                else if (buffer[i] == '\0')
+                    {
+                        printf("EOF");
+                        i++;
+                    }
+                else
+                {
+                    i++;
+                }
             }
+            i = 0;
+            /* Protection*/
+            if (bytes == 0 || bytes < 0)
+                break;
+            bytes = read(fd, buffer, BUFFER_SIZE);
         }
-        i = 0;
-        /* Protection*/
-        if (bytes == 0 || bytes < 0)
-            break;
-        bytes = read(fd, buffer, BUFFER_SIZE);
-    }
+    }   
     if (bytes <= 0)
     {
         if (bytes < 0)
