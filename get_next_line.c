@@ -1,24 +1,6 @@
 #include "get_next_line.h"
 
 /* 
- *🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
- *Function to check the errors in the last step.
-*/
-int		ft_anlyze_errors(int fd, char *buffer)
-{
-	/* 
-	 * #OPEN_MAX:  -----> is the maximum number of files that the operating
-	 *                    system can store in the same session.
-
-	 * #read(fd, buffer[fd], 0) -----> if nbyte is zero, the read() function may detect 
-	 * 									   and return errors.
-	 */
-	if (! buffer || fd < 0 || fd >= OPEN_MAX || (read(fd, buffer, 0) < 0))
-			return (0);
-	return (1);
-}
-
-/* 
  * 🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
  * This function is to search for new line in the argument
  * (buffer) and then create a temporary variable, 
@@ -27,7 +9,7 @@ int		ft_anlyze_errors(int fd, char *buffer)
  * we found new line), from the function argument (buffer).
  * or copy all the data from the buffer to it if we did not find a new line.
  */
-static char	*ft_search_new_line(char *buffer)
+char	*ft_search_new_line(char *buffer)
 {
 	char	*keep;
 	int		i;
@@ -97,7 +79,7 @@ static char	*ft_search_new_line(char *buffer)
  * if there is no error and no new_line, then it will
  * give join read() buffer to the (edited_buffer) and return it.
  */
-static char	*ft_reading_buffer(int fd, char *edited_buffer)
+char	*ft_reading_buffer(int fd, char *edited_buffer)
 {
 	char	*buffer;
 	int		bytes;
@@ -141,7 +123,7 @@ static char	*ft_reading_buffer(int fd, char *edited_buffer)
 	return (edited_buffer);
 }
 
-static char		*ft_get_next_text(char *buffer)
+char	*ft_get_next_text(char *buffer)
 {
 	int	i;
 	int n;
@@ -178,8 +160,8 @@ char	*get_next_line(int fd)
 	static char		*buffer;
 	char			*line;
 
-	if (! buffer || ft_anlyze_errors(fd, buffer) == 0)
-		return (NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
 	buffer = ft_reading_buffer(fd, buffer);
 	if (!buffer)
 		return (NULL);

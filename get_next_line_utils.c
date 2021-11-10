@@ -76,17 +76,3 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (0);
 }
-
-/* 
- *🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
- *Function to make free any string easier 
-*/
-static void	free_str(char *str)
-{
-	if (str)
-	{
-		free(str);
-		str = NULL;
-	}
-}
-

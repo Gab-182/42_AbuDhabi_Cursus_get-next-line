@@ -1,8 +1,9 @@
 #include "get_next_line.h"
-#include "get_next_line.c"
-#include "get_next_line_utils.c"
+// #include "get_next_line.c"
+// #include "get_next_line_utils.c"
 #include <stdio.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 int	main()
 {
