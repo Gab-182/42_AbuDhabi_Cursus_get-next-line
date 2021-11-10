@@ -6,7 +6,7 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 19:23:55 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/10 11:09:44 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:43:20 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,6 @@ char	*ft_strdup(const char *s1)
 	return (s2);
 }
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	int	n;
-
-	n = 0;
-	while (src[n] != '\0')
-	{
-		dst[n] = src[n];
-		n++;
-	}
-	dst[n] = '\0';
-	return (dst);
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
@@ -86,19 +72,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (new_str);
 }
 
-void	*ft_memset(void *dest, int c, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len)
-	{
-		((unsigned char *)dest)[i] = (unsigned char)c;
-		i++;
-	}
-	return (dest);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	int	n;
@@ -115,3 +88,5 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (0);
 }
+
+char	

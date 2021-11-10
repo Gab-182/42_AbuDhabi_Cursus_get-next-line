@@ -6,14 +6,15 @@
 /*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 22:43:43 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/10 13:22:10 by gabdoush         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:56:16 by gabdoush         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 /* 
-🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
-Function to make free any string easier 
+ *🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
+ *Function to make free any string easier 
 */
 static void	free_str(char *str)
 {
@@ -24,6 +25,10 @@ static void	free_str(char *str)
 	}
 }
 
+/* 
+ *🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
+ *Function to check the errors in the last step.
+*/
 int		anlyze_errors(int fd, char *buffer)
 {
 	/* 
@@ -111,44 +116,19 @@ static char	*search_new_line(char *buffer)
 	return (keep);
 }
 
-char	*reading_buffer(int fd, char *buffer)
+/* 
+ * 🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
+ * This function is to read from the read() buffer;
+ * if there is no error and no new_line, then it will
+ * give join read() buffer to the (edited_buffer) and return it.
+ */
+static char	*reading_buffer(int fd, char *edited_buffer)
 {
-	// int		bytes;
-	// char 	*keep;
-	// char	*buff;
-	// int 	i;
-	// i = 0;
-	// bytes = read(fd, buff, BUFFER_SIZE);
-	// while (bytes > 0)
-	// {
-    //     if (bytes == 0 || bytes < 0)
-    //         break;
-	// 	buff[bytes] = '\0';
-	// 	if (buffer != NULL)
-	// 	{
-	// 		buffer = ft_strdup(buff);
-	// 		keep = search_new_line(buffer);	
-	// 		// buffer = ft_strjoin(temp, buffer);
-	// 		/************** For Testing*********/
-	// 		printf("%s\n", buffer);
-	// 		// free_str(temp);
-	// 		// search_new_line(buffer);
-	// 	}
-	// 	else
-	// 	{
-	// 		buffer = ft_strdup(buff);
-	// 	}
-    //     if (bytes == 0 || bytes < 0)
-    //         break;
-	// 	bytes = read(fd, buff, BUFFER_SIZE);
-	// }
-	// return (buffer);
-/*===========================================================================*/
-	char	*buff;
+	char	*buffer;
 	int		bytes;
 
-	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buff)
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
 		return (NULL);
 	/* We need to start the while loop, thats why the (bytes)
 	 * should be more than (0).
@@ -157,24 +137,33 @@ char	*reading_buffer(int fd, char *buffer)
 	 */
 	bytes = 1;
 	/*
-	 * In this step:
-	 * 1- check if there is not new_line char .or.
-	 * 	  the we are not at the end of the file;
+	 * #In this step:
+	 *     check if there is no new_line char .or.
+	 * 	   if we are not at the end of the file;
 	 * 	   {enter the while loop};  
 	 */
-	while (!ft_strchr(buffer, '\n') && bytes != 0)
+	while ((ft_strchr(edited_buffer, '\n') == NULL) && (bytes != 0))
 	{
-		bytes = read(fd, buff, BUFFER_SIZE);
+		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
-			free(buff);
+		{
+			free(buffer);
 			/* We don't write also the 
 			 * buff = NULL; cause that will distroy the whole
 			 * Blocks of memory for buff, and we need then to
 			 * reallocate memory for (buff).
 			 */
 			return (NULL);
-		
+		}
+		/* 
+		 * Terminate the read() buffer, cause it don't terminate it
+		 * by it self.
+		 */
+		buffer[bytes] = '\0';
+		edited_buffer = ft_strjoin(edited_buffer, buffer);
 	}
+	free(buffer);
+	return (edited_buffer);
 }
 
 char	*get_next_line(int fd)
