@@ -1,35 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gabdoush <gabdoush@42ABUDHABI.AE>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/06 22:43:43 by gabdoush          #+#    #+#             */
-/*   Updated: 2021/11/10 14:56:16 by gabdoush         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
-
-/* 
- *🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
- *Function to make free any string easier 
-*/
-static void	free_str(char *str)
-{
-	if (str)
-	{
-		free(str);
-		str = NULL;
-	}
-}
 
 /* 
  *🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
  *Function to check the errors in the last step.
 */
-int		anlyze_errors(int fd, char *buffer)
+int		ft_anlyze_errors(int fd, char *buffer)
 {
 	/* 
 	 * #OPEN_MAX:  -----> is the maximum number of files that the operating
@@ -52,7 +27,7 @@ int		anlyze_errors(int fd, char *buffer)
  * we found new line), from the function argument (buffer).
  * or copy all the data from the buffer to it if we did not find a new line.
  */
-static char	*search_new_line(char *buffer)
+static char	*ft_search_new_line(char *buffer)
 {
 	char	*keep;
 	int		i;
@@ -122,7 +97,7 @@ static char	*search_new_line(char *buffer)
  * if there is no error and no new_line, then it will
  * give join read() buffer to the (edited_buffer) and return it.
  */
-static char	*reading_buffer(int fd, char *edited_buffer)
+static char	*ft_reading_buffer(int fd, char *edited_buffer)
 {
 	char	*buffer;
 	int		bytes;
@@ -166,23 +141,49 @@ static char	*reading_buffer(int fd, char *edited_buffer)
 	return (edited_buffer);
 }
 
+static char		*ft_get_next_text(char *buffer)
+{
+	int	i;
+	int n;
+	char *next_text;
+
+	i = 0;
+	n = 0;
+	if (!buffer)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	while (buffer[i] != '\0' && buffer[i] != '\n')
+		i++;
+	next_text = (char *)malloc(sizeof(char) * (ft_strlen(buffer) - i + 1));
+	if (!next_text)
+	{
+		free(next_text);
+		return (NULL);
+	}
+	while (buffer[i] != '\0')
+	{
+		next_text[n] = buffer[i];
+		i++;
+		n++;
+	}
+	next_text[n] = '\0';
+	free(buffer);
+	return (next_text);
+}
+
 char	*get_next_line(int fd)
 {
 	static char		*buffer;
 	char			*line;
-	
-	/*
-	 * Assign memory of size BUFFER_SIZE to the static variable (buffer).
-	 */
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	/*
-	 * check if there are any errors by checking the following:
-	 * 1- check if the memory allocation for buffer is correct.
-	 * 2- check the anlyze_error() function if it going to return (0).
-	*/
-	if (! buffer || anlyze_errors(fd, buffer) == 0)
-		return (NULL);
 
-	line = reading_buffer(fd, buffer);
+	if (! buffer || ft_anlyze_errors(fd, buffer) == 0)
+		return (NULL);
+	buffer = ft_reading_buffer(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	line = ft_search_new_line(buffer);
+	buffer = ft_get_next_text(buffer);
 	return (line);
 }
