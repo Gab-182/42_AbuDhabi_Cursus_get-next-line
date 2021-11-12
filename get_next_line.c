@@ -1,5 +1,5 @@
 #include "get_next_line.h"
-
+/************************************************************************/
 char	*get_next_line(int fd)
 {
 	static char		*edited_buffer;
@@ -14,3 +14,4 @@ char	*get_next_line(int fd)
 	edited_buffer = ft_get_next_text(edited_buffer);
 	return (line);
 }
+/************************************************************************/

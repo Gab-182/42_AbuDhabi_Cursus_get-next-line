@@ -1,31 +1,31 @@
 #include "get_next_line.h"
 
-char	*ft_search_new_line(char *buffer)
+char	*ft_search_new_line(char *edited_buffer)
 {
-	char	*keep;
+	char	*line;
 	int		i;
 
 	i = 0;
-	if (!buffer[i])
+	if (!edited_buffer[i])
 		return (NULL);
-	while (buffer[i] != '\n' && buffer[i])
+	while (edited_buffer[i] != '\n' && edited_buffer[i])
 		i++;
-	keep = (char *) malloc(sizeof(char) * (i + 2));
-	if (!keep)
+	line = (char *) malloc(sizeof(char) * (i + 2));
+	if (!line)
 		return (NULL);
 	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	while (edited_buffer[i] && edited_buffer[i] != '\n')
 	{
-		keep[i] = buffer[i];
+		line[i] = edited_buffer[i];
 		i++;
 	}
-	if (buffer[i] == '\n')
+	if (edited_buffer[i] == '\n')
 	{
-		keep[i] = buffer[i];
+		line[i] = edited_buffer[i];
 		i++;
 	}
-	keep[i] = '\0';
-	return (keep);
+	line[i] = '\0';
+	return (line);
 }
 
 char	*ft_reading_buffer(int fd, char *edited_buffer)
