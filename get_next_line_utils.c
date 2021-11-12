@@ -1,4 +1,5 @@
 #include "get_next_line.h"
+# include <stdio.h>
 
 /************************************************************************/
 int	ft_strlen(char *s)
@@ -63,7 +64,7 @@ char	*ft_strjoin(char *left_str, char *buff)
 }
 /************************************************************************/
 /* 
- * 🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
+ * 🍏This functions has been checked 🍏
  * This function is to read from the read() buffer;
  * if there is no error and no new_line, then it will
  * give join read() buffer to the (edited_buffer) and return it.
@@ -121,7 +122,7 @@ char	*ft_reading_buffer(int fd, char *edited_buffer)
 }
 /************************************************************************/
 /* 
- * 🍏🍏🍏🍏This functions has been checked 🍏🍏🍏🍏
+ * 🍏This functions has been checked 🍏
  * This function is to search for new line in the argument
  * (buffer) and then create a temporary variable, 
  * and allocate memory to it.
@@ -156,10 +157,24 @@ char	*ft_search_new_line(char *edited_buffer)
 	 * cause we need also to make some space to the text and ends with
 	 * ['\n'  +  '\0'].
 	 */
-	if (edited_buffer[i+1] == '\n')
+	if (edited_buffer[i] == '\n')
+	{
 		line = (char *) malloc(sizeof(char) * (i + 2));
-	if (edited_buffer[i+1] == '\0')
+		/****************** For testing *******************/
+		// printf("This is when we fined '\\n'\n");
+		// printf("%d\n", i);
+		// printf("%c\n", edited_buffer[i]);
+		/****************** For testing *******************/
+	}
+	if (edited_buffer[i] == '\0')
+	{
 		line = (char *) malloc(sizeof(char) * (i + 1));
+		/****************** For testing *******************/
+		// printf("This is when we fined '\\0'\n");
+		// printf("%d\n", i);
+		// printf("%c\n", edited_buffer[i]);
+		/****************** For testing *******************/
+	}
 	/* 
 	 * step-3:
 	 * Checking that (basic text) is not a NULL string
@@ -195,29 +210,55 @@ char	*ft_search_new_line(char *edited_buffer)
 	return (line);
 }
 /************************************************************************/
+/*
+ * 🍏This functions has been checked 🍏
+ * This function Basically to store the next line in 
+ * memory of the static variable, so it will be ready when
+ * call the function get_next_line() agine. and then the 
+ * get_next_line() function will return the next line and so on 
+ * until we reach the EOF.
+ */
 char	*ft_get_next_text(char *edited_buffer)
 {
-	int	i;
-	int n;
-	char *next_text;
+	int		i;
+	int 	n;
+	char 	*next_text;
 
 	i = 0;
+	n = 0;
 	while (edited_buffer[i] && edited_buffer[i] != '\n')
 		i++;
+	/*
+	 * This while loop will help me to reach the (line) memory so i can
+	 * store the rest of (edited_buffer) in the new memory (next_text).
+	 */
 	if (!edited_buffer[i])
 	{
 		free(edited_buffer);
 		return (NULL);
 	}
+	/*
+	 * (i) here is basically the length of the variable (line)
+	 */
 	next_text = (char *)malloc(sizeof(char) * (ft_strlen(edited_buffer) - i + 1));
 	if (!next_text)
 		return (NULL);
+	/*
+	 * i++ -----> To pass the new_line that we included
+	 * in the (line) variable and move to the next char in (edited_buffer).
+	 */
 	i++;
-	n = 0;
 	while (edited_buffer[i])
 	{
-		next_text[n++] = edited_buffer[i++];
+		next_text[n] = edited_buffer[i];
+		n++;
+		i++;
 	}
+	/*
+	 * Terminate (next_text) with '\0'.
+	 * Then free the previous memory data of (edited_buffer)
+	 * To prepare it to store (next_text).
+	*/
 	next_text[n] = '\0';
 	free(edited_buffer);
 	return (next_text);
