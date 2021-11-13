@@ -147,19 +147,18 @@ char	*ft_search_new_line(char *edited_buffer)
 	 *   This step is just to help me to allocate the right amount
 	 *   of memory to the temporary variable (temp).
 	 */
-	while (edited_buffer[i-1] != '\n' && edited_buffer[i] != '\0')
+	while (edited_buffer[i] != '\n' && edited_buffer[i] != '\0')
 		i++;
 	/*
-	 * NOTE:
 	 * Here I wrote:
 	 * (sizeof(char) * (i + 2));
 	 * cause we need also to make some space to the text and ends with
 	 * ['\n'  +  '\0'].
 	 */
-	line = (char *) malloc(sizeof(char) * (i + 1));
+	line = (char *) malloc(sizeof(char) * (i + 2));
 	/* 
 	 * step-3:
-	 * Checking that the Allocation proccess is successfully
+	 * Checking that the Allocation proccess was successfully
 	 * completed. 
 	 */
 	if (!line)

@@ -157,7 +157,7 @@ char	*ft_search_new_line(char *edited_buffer)
 	 * cause we need also to make some space to the text and ends with
 	 * ['\n'  +  '\0'].
 	 */
-	line = (char *) malloc(sizeof(char) * (i + 1));
+	line = (char *) malloc(sizeof(char) * (i + 2));
 	/* 
 	 * step-3:
 	 * Checking that (basic text) is not a NULL string
@@ -187,6 +187,7 @@ char	*ft_search_new_line(char *edited_buffer)
 	if (edited_buffer[i] == '\n')
 	{
 		line[i] = edited_buffer[i];
+		/* Then increasing (i) for the null */
 		i++;
 	}
 	line[i] = '\0';

@@ -8,6 +8,10 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	edited_buffer = ft_reading_buffer(fd, edited_buffer);
+	/* 
+	 * When I removed this protection it gave (SEGSEGV) error
+	 * when testing (Invalid fd).
+	 */
 	if (!edited_buffer)
 		return (NULL);
 	line = ft_search_new_line(edited_buffer);
