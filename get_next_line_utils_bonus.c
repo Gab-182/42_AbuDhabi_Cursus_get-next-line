@@ -1,5 +1,4 @@
 #include "get_next_line_bonus.h"
-# include <stdio.h>
 
 /************************************************************************/
 int	ft_strlen(char *s)
@@ -148,7 +147,7 @@ char	*ft_search_new_line(char *edited_buffer)
 	 *   This step is just to help me to allocate the right amount
 	 *   of memory to the temporary variable (temp).
 	 */
-	while (edited_buffer[i] != '\n' && edited_buffer[i] != '\0')
+	while (edited_buffer[i-1] != '\n' && edited_buffer[i] != '\0')
 		i++;
 	/*
 	 * NOTE:
@@ -157,27 +156,11 @@ char	*ft_search_new_line(char *edited_buffer)
 	 * cause we need also to make some space to the text and ends with
 	 * ['\n'  +  '\0'].
 	 */
-	if (edited_buffer[i] == '\n')
-	{
-		line = (char *) malloc(sizeof(char) * (i + 2));
-		/****************** For testing *******************/
-		// printf("This is when we fined '\\n'\n");
-		// printf("%d\n", i);
-		// printf("%c\n", edited_buffer[i]);
-		/****************** For testing *******************/
-	}
-	if (edited_buffer[i] == '\0')
-	{
-		line = (char *) malloc(sizeof(char) * (i + 1));
-		/****************** For testing *******************/
-		// printf("This is when we fined '\\0'\n");
-		// printf("%d\n", i);
-		// printf("%c\n", edited_buffer[i]);
-		/****************** For testing *******************/
-	}
+	line = (char *) malloc(sizeof(char) * (i + 1));
 	/* 
 	 * step-3:
-	 * Checking that (basic text) is not a NULL string
+	 * Checking that the Allocation proccess is successfully
+	 * completed. 
 	 */
 	if (!line)
 		return (NULL);
